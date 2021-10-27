@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
   final List<Kalem> kalemler = [
     Kalem(
@@ -49,6 +50,14 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
+  /* String baslikGirdisi = "";
+  String miktarGirdisi = ""; */
+
+  final baslikKontrolcusu = TextEditingController();
+  final miktarKontrolcusu = TextEditingController();
+
+  MyHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +66,7 @@ class MyHomePage extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            const SizedBox(
               width: double.infinity,
               child: Card(
                 color: Colors.red,
@@ -68,22 +77,31 @@ class MyHomePage extends StatelessWidget {
             Card(
               elevation: 5,
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
-                  children: [
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
                     TextField(
-                      decoration: InputDecoration(labelText: 'Başlık'),
+                      decoration: const InputDecoration(labelText: 'Başlık'),
+                      controller: baslikKontrolcusu,
+                      /* onChanged: (deger) {
+                        baslikGirdisi = deger;
+                      }, */
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'Miktar'),
+                      decoration: const InputDecoration(labelText: 'Miktar'),
+                      controller: miktarKontrolcusu,
+                      /* onChanged: (deger) {
+                        miktarGirdisi = deger;
+                      }, */
                     ),
                     TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(1),
-                        primary: Colors.blueGrey,
+                      child: const Text('Harcama Ekle'),
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {},
-                      child: const Text('Kalem Ekle'),
                     )
                   ],
                 ),
@@ -108,7 +126,7 @@ class MyHomePage extends StatelessWidget {
                             width: 2,
                           ),
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Text(
                           ' ₺ ' + klm.miktar.toString(),
                           style: const TextStyle(
